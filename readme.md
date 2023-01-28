@@ -56,6 +56,18 @@ Para dejarlo claro, un producto nunca puede incrementar su Quality mayor a 50, s
 # Preguntas de conocimiento en Laravel
 
 1. Qué paquete o estrategia utilizarías para levantar un sistema de administración rápidamente? (Autenticación y CRUDs)
+    - `Para levantar un sistema de administración rápidamente, se puede utilizar el paquete de Laravel Nova o Laravel Voyager, el cual nos permite crear un sistema de administración con autenticación y CRUDs de forma rápida y sencilla.`
 2. Una breve explicación de cómo laravel utiliza la injección de dependencias
+    - `En Laravel, se utiliza el contenedor de inyección de dependencias para resolver y crear las instancias de las clases que se necesitan en una aplicación.`
+    - `Cuando se llama a una clase en Laravel, el contenedor busca en su registro si ya existe una instancia de esa clase. Si existe, se devuelve esa instancia. Si no existe, se crea una nueva instancia y se registra en el contenedor. Además, el contenedor también se encarga de resolver las dependencias de la clase, es decir, las clases que necesita para funcionar.`
+    - `Por ejemplo, si tienes un controlador que depende de una clase de servicio, puedes inyectar la clase de servicio en el constructor del controlador. El contenedor se encargará de crear una instancia de la clase de servicio y pasarla al constructor del controlador.`
+    - `De esta manera, se logra una mayor flexibilidad y seguridad al desarrollar aplicaciones con Laravel, ya que se pueden inyectar clases concretas en lugar de instanciarlas directamente, lo cual permite una mejor testing, mantenimiento y escalabilidad de la aplicación.`
 3. En qué casos utilizarías un Query Scope?
+    - `Aplicar un filtro común a un conjunto de consultas, como solo mostrar los registros activos o los registros creados en un rango de fechas específico.`
+    - `Simplificar el código al llamar a un método en lugar de escribir una consulta compleja cada vez que se necesite ese filtro.`
 4. Qué convenciones utilizas en la creación e implementación de migraciones?
+    - `Nomenclatura: Las migraciones deben tener un nombre descriptivo que refleje el cambio que realizan en la base de datos, como "create_users_table" o "add_age_column_to_users_table".`
+    - `Orden: Las migraciones deben estar ordenadas cronológicamente, para que siempre se apliquen en el orden correcto.`
+    - `Utilizar el comando "php artisan migrate:status" para verificar el estado de las migraciones y asegurar que se han aplicado correctamente.`
+    - `Utilizar "php artisan migrate:rollback" para revertir las últimas migraciones.`
+    - `Utilizar "php artisan migrate:refresh" para revertir y volver a aplicar las migraciones.`
