@@ -6,6 +6,7 @@ use App\Context\Products\Domain\LengendaryProduct;
 use App\Context\Products\Domain\ProductName;
 use App\Context\Products\Domain\ProductQuality;
 use App\Context\Products\Domain\ProductSellIn;
+use App\Context\Products\Domain\Ticket;
 use App\VillaPeruana;
 
 /*
@@ -297,6 +298,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(11);
                 expect($item->sellIn)->toBe(10);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(10),
+                    new ProductSellIn(11)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(11);
+                expect($product->sellIn()->value())->toBe(10);
             });
 
             it ('actualiza tickets VIP cerca a la fecha del evento', function () {
@@ -306,6 +318,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(12);
                 expect($item->sellIn)->toBe(9);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(10),
+                    new ProductSellIn(10)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(12);
+                expect($product->sellIn()->value())->toBe(9);
             });
 
             it ('actualiza tickets VIP cerca a la fecha del evento, a la mayor calidad', function () {
@@ -315,6 +338,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(50);
                 expect($item->sellIn)->toBe(9);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(50),
+                    new ProductSellIn(10)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(50);
+                expect($product->sellIn()->value())->toBe(9);
             });
 
             it ('actualiza tickets VIP muy cerca a la fecha del evento', function () {
@@ -324,6 +358,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(13); // goes up by 3
                 expect($item->sellIn)->toBe(4);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(10),
+                    new ProductSellIn(5)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(13);
+                expect($product->sellIn()->value())->toBe(4);
             });
 
             it ('actualiza tickets VIP muy cerca a la fecha del evento, a máxima calidad', function () {
@@ -333,6 +378,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(50);
                 expect($item->sellIn)->toBe(4);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(50),
+                    new ProductSellIn(5)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(50);
+                expect($product->sellIn()->value())->toBe(4);
             });
 
             it ('actualiza tickets VIP un día antes de la fecha del evento', function () {
@@ -342,6 +398,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(13);
                 expect($item->sellIn)->toBe(0);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(10),
+                    new ProductSellIn(1)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(13);
+                expect($product->sellIn()->value())->toBe(0);
             });
 
             it ('actualiza tickets VIP un día antes de la fecha del evento, a calidad máxima', function () {
@@ -352,6 +419,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(50);
                 expect($item->sellIn)->toBe(0);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(50),
+                    new ProductSellIn(1)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(50);
+                expect($product->sellIn()->value())->toBe(0);
             });
 
             it ('actualiza tickets VIP en la fecha del evento', function () {
@@ -362,6 +440,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(0);
                 expect($item->sellIn)->toBe(-1);
+
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(10),
+                    new ProductSellIn(0)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(0);
+                expect($product->sellIn()->value())->toBe(-1);
             });
 
             it ('actualiza tickets VIP después de la fecha del evento', function () {
@@ -372,8 +461,18 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(0);
                 expect($item->sellIn)->toBe(-2);
-            });
 
+                $product = new Ticket(
+                    new ProductName('Ticket VIP al concierto de Pick Floid'),
+                    new ProductQuality(10),
+                    new ProductSellIn(-1)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(0);
+                expect($product->sellIn()->value())->toBe(-2);
+            });
         });
 
 
