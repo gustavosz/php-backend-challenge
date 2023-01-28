@@ -17,14 +17,8 @@ abstract class Product
         $this->sellIn = $sellIn;
     }
 
-    abstract public function decreaseSellIn();
-    abstract public function decreaseQuality();
-
-    final public function tick()
-    {
-        $this->decreaseSellIn();
-        $this->decreaseQuality();
-    }
+    abstract public function updateSellIn();
+    abstract public function updateQuality();
 
     public function name(): ProductName
     {
