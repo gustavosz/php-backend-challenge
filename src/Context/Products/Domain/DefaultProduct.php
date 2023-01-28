@@ -11,12 +11,10 @@ final class DefaultProduct extends Product implements ProductInterface
 
     public function updateQuality()
     {
-        if ($this->quality()->value() > self::MIN_QUALITY) {
-            $this->quality()->setValue($this->quality()->value() - 1);
+        $this->quality()->setValue($this->quality()->value() - 1);
 
-            if ($this->sellIn()->value() < 0) {
-                $this->quality()->setValue($this->quality()->value() - 1);
-            }
+        if ($this->sellIn()->value() < 0) {
+            $this->quality()->setValue($this->quality()->value() - 1);
         }
     }
 

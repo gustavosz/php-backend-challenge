@@ -5,6 +5,7 @@ namespace App\Context\Products\Domain;
 abstract class Product
 {
     protected const MIN_QUALITY = 0;
+    protected const MAX_QUALITY = 50;
 
     private ProductName $name;
     private ProductQuality $quality;

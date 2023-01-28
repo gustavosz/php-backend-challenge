@@ -1,5 +1,6 @@
 <?php
 
+use App\Context\Products\Domain\BrandyDrink;
 use App\Context\Products\Domain\DefaultProduct;
 use App\Context\Products\Domain\ProductName;
 use App\Context\Products\Domain\ProductQuality;
@@ -107,6 +108,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(11);
                 expect($item->sellIn)->toBe(4);
+
+                $product = new BrandyDrink(
+                    new ProductName('Pisco Peruano'),
+                    new ProductQuality(10),
+                    new ProductSellIn(5)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(13);
+                expect($product->sellIn()->value())->toBe(4);
             });
 
             it ('actualiza Pisco Peruano antes de la fecha de venta con máxima calidad', function () {
@@ -116,6 +128,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(50);
                 expect($item->sellIn)->toBe(4);
+
+                $product = new BrandyDrink(
+                    new ProductName('Pisco Peruano'),
+                    new ProductQuality(50),
+                    new ProductSellIn(5)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(50);
+                expect($product->sellIn()->value())->toBe(4);
             });
 
             it ('actualiza Pisco Peruano en la fecha de venta', function () {
@@ -125,6 +148,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(12);
                 expect($item->sellIn)->toBe(-1);
+
+                $product = new BrandyDrink(
+                    new ProductName('Pisco Peruano'),
+                    new ProductQuality(10),
+                    new ProductSellIn(0)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(13);
+                expect($product->sellIn()->value())->toBe(-1);
             });
 
             it ('actualiza Pisco Peruano en la fecha de venta, cerca a su máxima calidad', function () {
@@ -134,6 +168,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(50);
                 expect($item->sellIn)->toBe(-1);
+
+                $product = new BrandyDrink(
+                    new ProductName('Pisco Peruano'),
+                    new ProductQuality(49),
+                    new ProductSellIn(0)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(50);
+                expect($product->sellIn()->value())->toBe(-1);
             });
 
             it ('actualiza Pisco Peruano en la fecha de venta con máxima calidad', function () {
@@ -143,6 +188,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(50);
                 expect($item->sellIn)->toBe(-1);
+
+                $product = new BrandyDrink(
+                    new ProductName('Pisco Peruano'),
+                    new ProductQuality(50),
+                    new ProductSellIn(0)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(50);
+                expect($product->sellIn()->value())->toBe(-1);
             });
 
             it ('actualiza Pisco Peruano después de la fecha de venta', function () {
@@ -152,6 +208,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(12);
                 expect($item->sellIn)->toBe(-11);
+
+                $product = new BrandyDrink(
+                    new ProductName('Pisco Peruano'),
+                    new ProductQuality(10),
+                    new ProductSellIn(-10)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(13);
+                expect($product->sellIn()->value())->toBe(-11);
             });
 
              it ('actualiza Briem items después de la fecha de venta con máxima calidad', function () {
@@ -161,8 +228,18 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(50);
                 expect($item->sellIn)->toBe(-11);
-            });
 
+                $product = new BrandyDrink(
+                    new ProductName('Pisco Peruano'),
+                    new ProductQuality(50),
+                    new ProductSellIn(-10)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(50);
+                expect($product->sellIn()->value())->toBe(-11);
+            });
         });
 
 

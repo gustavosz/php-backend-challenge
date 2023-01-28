@@ -32,4 +32,11 @@ class ProductQuality extends IntValueObject
             throw new InvalidArgumentException('Product quality cannot be greater than ' . self::MAX_VALUE);
         }
     }
+
+    public function setValue(int $value)
+    {
+        if ($value >= self::MIN_VALUE && $value <= self::MAX_VALUE) {
+            parent::setValue($value);
+        }
+    }
 }
