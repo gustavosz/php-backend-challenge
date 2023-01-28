@@ -16,6 +16,11 @@ abstract class IntValueObject
         return $this->value;
     }
 
+    public function setValue(int $value)
+    {
+        $this->value = $value;
+    }
+
     public function __toString(): string
     {
         return (string) $this->value;

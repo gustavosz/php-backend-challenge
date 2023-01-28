@@ -1,5 +1,9 @@
 <?php
 
+use App\Context\Products\Domain\DefaultProduct;
+use App\Context\Products\Domain\ProductName;
+use App\Context\Products\Domain\ProductQuality;
+use App\Context\Products\Domain\ProductSellIn;
 use App\VillaPeruana;
 
 /*
@@ -19,6 +23,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(9);
                 expect($item->sellIn)->toBe(4);
+
+                $product = new DefaultProduct(
+                    new ProductName('normal'),
+                    new ProductQuality(10),
+                    new ProductSellIn(5)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(9);
+                expect($product->sellIn()->value())->toBe(4);
             });
 
             it ('actualiza productos normales en la fecha de venta', function () {
@@ -28,6 +43,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(8);
                 expect($item->sellIn)->toBe(-1);
+
+                $product = new DefaultProduct(
+                    new ProductName('normal'),
+                    new ProductQuality(10),
+                    new ProductSellIn(0)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(8);
+                expect($product->sellIn()->value())->toBe(-1);
             });
 
             it ('actualiza productos normales después de la fecha de venta', function () {
@@ -37,6 +63,17 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(8);
                 expect($item->sellIn)->toBe(-6);
+
+                $product = new DefaultProduct(
+                    new ProductName('normal'),
+                    new ProductQuality(10),
+                    new ProductSellIn(-5)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(8);
+                expect($product->sellIn()->value())->toBe(-6);
             });
 
             it ('actualiza productos normales con calidad 0', function () {
@@ -46,8 +83,18 @@ describe('Villa Peruana', function () {
 
                 expect($item->quality)->toBe(0);
                 expect($item->sellIn)->toBe(4);
-            });
 
+                $product = new DefaultProduct(
+                    new ProductName('normal'),
+                    new ProductQuality(0),
+                    new ProductSellIn(5)
+                );
+
+                $product->tick();
+
+                expect($product->quality()->value())->toBe(0);
+                expect($product->sellIn()->value())->toBe(4);
+            });
         });
 
 

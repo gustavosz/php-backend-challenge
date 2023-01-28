@@ -4,6 +4,8 @@ namespace App\Context\Products\Domain;
 
 abstract class Product
 {
+    protected const MIN_QUALITY = 0;
+
     private ProductName $name;
     private ProductQuality $quality;
     private ProductSellIn $sellIn;
@@ -15,10 +17,10 @@ abstract class Product
         $this->sellIn = $sellIn;
     }
 
-    abstract public function decreaseSellIn(): void;
-    abstract public function decreaseQuality(): void;
+    abstract public function decreaseSellIn();
+    abstract public function decreaseQuality();
 
-    protected function tick()
+    final public function tick()
     {
         $this->decreaseSellIn();
         $this->decreaseQuality();
