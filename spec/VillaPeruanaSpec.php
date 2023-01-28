@@ -2,6 +2,7 @@
 
 use App\Context\Products\Domain\BrandyDrink;
 use App\Context\Products\Domain\DefaultProduct;
+use App\Context\Products\Domain\LengendaryProduct;
 use App\Context\Products\Domain\ProductName;
 use App\Context\Products\Domain\ProductQuality;
 use App\Context\Products\Domain\ProductSellIn;
@@ -272,6 +273,13 @@ describe('Villa Peruana', function () {
                 expect($item->sellIn)->toBe(-1);
             });
 
+            it ('crear productos legendarios. no puede ser modificado ni vendido', function () {
+                $product = new LengendaryProduct(
+                    new ProductName('Tumi de Oro Moche'),
+                );
+
+                expect($product->quality()->value())->toBe(80);
+            });
         });
 
 

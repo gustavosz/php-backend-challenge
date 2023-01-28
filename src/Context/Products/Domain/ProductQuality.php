@@ -9,10 +9,17 @@ class ProductQuality extends IntValueObject
 {
     private const MIN_VALUE = 0;
     private const MAX_VALUE = 50;
+    private const MAX_VALUE_LEGENDARY = 80;
 
-    public function __construct(int $value)
+    private int $maxValue = self::MAX_VALUE;
+
+    public function __construct(int $value, bool $isLegendary = false)
     {
         parent::__construct($value);
+
+        if ($isLegendary) {
+            $this->maxValue = self::MAX_VALUE_LEGENDARY;
+        }
 
         $this->ensureIsNotNegative($value);
 
@@ -28,14 +35,14 @@ class ProductQuality extends IntValueObject
 
     private function ensureIsNotGreaterThanMaxValue($value)
     {
-        if ($value > self::MAX_VALUE) {
-            throw new InvalidArgumentException('Product quality cannot be greater than ' . self::MAX_VALUE);
+        if ($value > $this->maxValue) {
+            throw new InvalidArgumentException('Product quality cannot be greater than ' . $this->maxValue);
         }
     }
 
     public function setValue(int $value)
     {
-        if ($value >= self::MIN_VALUE && $value <= self::MAX_VALUE) {
+        if ($value >= self::MIN_VALUE && $value <= $this->maxValue) {
             parent::setValue($value);
         }
     }
